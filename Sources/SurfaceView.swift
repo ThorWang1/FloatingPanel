@@ -50,11 +50,23 @@ public class SurfaceAppearance: NSObject {
     /// On iOS 10, they are not automatically masked because of a UIVisualEffectView issue. See https://forums.developer.apple.com/thread/50854
     public var cornerRadius: CGFloat = 0.0
 
-    /// Defines the curve used for rendering the rounded corners of the layer.
-    ///
-    /// Defaults to `.circular`.
+    private var _cornerCurve: CALayerCornerCurve? = nil
+    
+    //    /// Defines the curve used for rendering the rounded corners of the layer.
+    //    ///
+    //    /// Defaults to `.circular`.
+    //    @available(iOS 13.0, *)
+    //    public lazy var cornerCurve: CALayerCornerCurve = .circular
+    
     @available(iOS 13.0, *)
-    public lazy var cornerCurve: CALayerCornerCurve = .circular
+    var cornerCurve: CALayerCornerCurve {
+      get {
+        return _cornerCurve ?? .circular
+      }
+      set {
+        _cornerCurve = newValue
+      }
+    }
 
     /// An array of shadows used to create drop shadows underneath a surface view.
     public var shadows: [Shadow] = [Shadow()]
